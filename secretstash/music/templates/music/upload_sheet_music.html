@@ -1,0 +1,15 @@
+<!-- music/templates/music/upload_sheet_music.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Sheet Music</title>
+</head>
+<body>
+    <h1>Upload Sheet Music</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>
