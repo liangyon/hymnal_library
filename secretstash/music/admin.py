@@ -1,6 +1,5 @@
 # music/admin.py
 from django.contrib import admin
-from .models import SheetMusic, Mp3
+from .models import SheetMusic
 
 admin.site.register(SheetMusic)
-admin.site.register(Mp3)
