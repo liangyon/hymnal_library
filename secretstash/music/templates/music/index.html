@@ -1,17 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends 'music/base.html' %}
+{% load static %}
+{% block title %}Home - Hymnal Library{% endblock %}
 
-    <meta charset="UTF-8">
-    <title>Index Page</title>
-</head>
-<body>
-    <h1>Items</h1>
-    <ul>
-        {% for item in items %}
-            <li>{{ item.title }}: {{ item.description }}</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'upload_sheet_music' %}">Upload Sheet Music</a>
-</body>
-</html>
+{% block content %}
+
+
+    <section id="cta" class="main special">
+        <header class="major">
+            <h2>Welcome</h2>
+            <p>Let us share the joy of music<br /></p>
+        </header>
+        <footer class="major">
+            <ul class="actions special">
+                <li><a href="{% url 'login' %}" class="button primary">Login</a></li>
+                <li>   <a href="{% url 'upload_sheet_music' %}" class="button">Upload Sheet Music</a></li>
+            </ul>
+        </footer>
+    </section>
+
+    <section id="intro" class="main special">
+        <div class="spotlight">
+            <div class="content">
+                <header class="major">
+                    <h2>Some samples</h2>
+                </header>
+                    {% for item in items %}
+                        <a href="{% url 'upload_sheet_music' %}">{{ item.title }}: {{ item.description }} </a> <br />
+                    {% endfor %}
+                <ul class="actions special">
+                    <li><a href="{% url 'upload_sheet_music' %}" class="button">Learn More</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

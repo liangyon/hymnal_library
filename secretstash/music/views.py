@@ -1,5 +1,6 @@
 # music/views.py
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .forms import SheetMusicForm
 from .models import SheetMusic
 
@@ -9,6 +10,7 @@ def index(request):
     return render(request, 'music/index.html', {'items': items})
 
 
+@login_required()
 def upload_sheet_music(request):
     if request.method == 'POST':
         form = SheetMusicForm(request.POST, request.FILES)
@@ -20,5 +22,3 @@ def upload_sheet_music(request):
     else:
         form = SheetMusicForm()
     return render(request, 'music/upload_sheet_music.html', {'form': form})
-
-

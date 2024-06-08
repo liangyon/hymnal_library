@@ -1,15 +1,20 @@
 <!-- music/templates/music/upload_sheet_music.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Upload Sheet Music</title>
-</head>
-<body>
-    <h1>Upload Sheet Music</h1>
+{% extends 'music/base.html' %}
+{% load static %}
+{% block title %}Home - Hymnal Library{% endblock %}
+
+{% block content %}
+<section id="cta" class="main special">
+    <header class="major">
+        <h2>Upload Sheet Music</h2>
+    </header>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Upload</button>
     </form>
-</body>
-</html>
+    <footer class="major">
+    </footer>
+</section>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+<!-- music/templates/music/upload_sheet_music.html -->
+{% extends 'music/base.html' %}
+{% load static %}
+{% block title %}Home - Hymnal Library{% endblock %}
+
+{% block content %}
+<section id="cta" class="main special">
+    <header class="major">
+        <h2>Login</h2>
+    </header>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sign in</button>
+    </form>
+    <footer class="major">
+    </footer>
+</section>
+
+{% endblock %}
