@@ -8,10 +8,21 @@
     <header class="major">
         <h2>Login</h2>
     </header>
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" action="{% url 'login' %}" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        <table>
+            <tr>
+                <td>{{ form.username.label_tag }}</td>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.password.label_tag }}</td>
+                <td>{{ form.password }}</td>
+            </tr>
+
+        </table>
         <button type="submit">Submit</button>
+        <input type="hidden" name="next" value="{{ next }}">
     </form>
     <footer class="major">
     </footer>

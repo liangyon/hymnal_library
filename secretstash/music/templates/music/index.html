@@ -25,7 +25,7 @@
                     <h2>Some samples</h2>
                 </header>
                     {% for item in items %}
-                        <a href="{% url 'upload_sheet_music' %}">{{ item.title }}: {{ item.description }} </a> <br />
+                        <a href="{% url 'music_page' %}">{{ item.title }}: {{ item.description }} </a> <br />
                     {% endfor %}
                 <ul class="actions special">
                     <li><a href="{% url 'upload_sheet_music' %}" class="button">Learn More</a></li>
