@@ -1,5 +1,5 @@
 # music/views.py
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
@@ -30,8 +30,9 @@ def upload_sheet_music(request):
 
 
 @login_required()
-def music_page(request):
-    return render(request, 'music/music_page.html')
+def music_page(request, sheetID):
+    sheet = get_object_or_404(SheetMusic, id=sheetID)
+    return render(request, 'music/music_page.html', {'sheet': sheet})
 
 
 def login_view(request):

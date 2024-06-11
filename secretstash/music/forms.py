@@ -6,4 +6,4 @@ from .models import SheetMusic
 class SheetMusicForm(forms.ModelForm):
     class Meta:
         model = SheetMusic
-        fields = ['title', 'description', 'file']
+        fields = ['title', 'description', 'lyrics', 'lyricsAuthor', 'musicAuthor', 'tjchymn', 'pdf', 'playable']
