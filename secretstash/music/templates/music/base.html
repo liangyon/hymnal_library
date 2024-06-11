@@ -1,5 +1,10 @@
 <!DOCTYPE HTML>
 {% load static %}
+{% load compress %}
+{% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'css/main.scss' %}" />
+{% endcompress %}
+
 <!--
 
 
@@ -21,14 +26,14 @@
 		<noscript><link rel="stylesheet" href="{% static 'css/noscript.css' %}" /></noscript>
 
 	</head>
-	<body class="is-preload">
-
+	<body class="">
+	<!--	class=ispreload will fade something in-->
 		<!-- Wrapper -->
 			<div id="wrapper">
 
 				<!-- Header -->
 					<header id="header" class="alt">
-						<span class="logo"><img src="images/logo.svg" alt="" /></span>
+<!--						<span class="logo"><img src="{% static 'images/logo.svg' %}" alt="" /></span>-->
 						<h1>Jar Jar JAR</h1>
 						<p>Currently work in progress<br />
 						built by <a href="">Steve Jobs</a> for <a href="">clowns</a>.</p>
@@ -48,11 +53,13 @@
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
-							<li><a href="{% url 'index' %}">Home</a></li>
+							<li><a href="{% url 'index' %}" class="active">Home</a></li>
 							<li><a href="#cta">Get Started</a></li>
-							<li><a href="#intro" class="active">Samples</a></li>
+							<li><a href="#intro" class="">Samples</a></li>
 							{% if user.is_authenticated %}
-							<li><a href="{% url 'login' %}" class="active">You are logged in</a></li>
+							<li><a href="" class="">You are logged in</a></li>
+							{% else %}
+							<li><a href="{% url 'login' %}" class="">Login</a></li>
 							{% endif %}
 						</ul>
 					</nav>
@@ -133,7 +140,7 @@
 <!--							</section>-->
 
 
-<!--					</div>-->
+					</div>
 
 				<!-- Footer -->
 					<footer id="footer">
