@@ -20,22 +20,22 @@
         </footer>
     </section>
 
-    {% if user.is_authenticated %}
-    <section id="intro" class="main special">
-        <div class="spotlight">
-            <div class="content">
-                <header class="major">
-                    <h2>Some samples</h2>
-                </header>
-                    {% for item in items %}
-                        <a href="{% url 'music_page' item.id %}">{{ item.title }}: {{ item.description }} </a> <br />
-                    {% endfor %}
-                <ul class="actions special">
-                    <li><a href="{% url 'upload_sheet_music' %}" class="button">Learn More</a></li>
-                </ul>
-            </div>
-        </div>
-    </section>
-    {% endif %}
+<!--    {% if user.is_authenticated %}-->
+<!--    <section id="intro" class="main special">-->
+<!--        <div class="spotlight">-->
+<!--            <div class="content">-->
+<!--                <header class="major">-->
+<!--                    <h2>Some samples</h2>-->
+<!--                </header>-->
+<!--                    {% for item in items %}-->
+<!--                        <a href="{% url 'music_page' item.id %}">{{ item.title }}: {{ item.description }} </a> <br />-->
+<!--                    {% endfor %}-->
+<!--                <ul class="actions special">-->
+<!--                    <li><a href="{% url 'upload_sheet_music' %}" class="button">Learn More</a></li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+<!--    {% endif %}-->
 
 {% endblock %}

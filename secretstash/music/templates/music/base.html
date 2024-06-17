@@ -34,9 +34,8 @@
 				<!-- Header -->
 					<header id="header" class="alt">
 <!--						<span class="logo"><img src="{% static 'images/logo.svg' %}" alt="" /></span>-->
-						<h1>Jar Jar JAR</h1>
-						<p>Currently work in progress<br />
-						built by <a href="">Steve Jobs</a> for <a href="">clowns</a>.</p>
+						<h1>Hymnal Library</h1>
+						<p>work in progress</p>
 						{% if user.is_authenticated %}
 						<form method="post" action="{% url 'logout' %}">
 							{% csrf_token %}
@@ -54,8 +53,8 @@
 					<nav id="nav">
 						<ul>
 							<li><a href="{% url 'index' %}" class="active">Home</a></li>
-							<li><a href="#cta">Get Started</a></li>
-							<li><a href="#intro" class="">Samples</a></li>
+							<li><a href="#cta">Upload</a></li>
+							<li><a href="#intro" class="">Music Index</a></li>
 							{% if user.is_authenticated %}
 							<li><a href="" class="">You are logged in</a></li>
 							{% else %}
@@ -169,7 +168,7 @@
 								<li><a href="#" class="icon brands fa-dribbble alt"><span class="label">Dribbble</span></a></li>
 							</ul>
 						</section>
-						<p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+						<p class="copyright">&copy; Untitled</p>
 					</footer>
 
 			</div>
