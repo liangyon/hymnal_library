@@ -53,10 +53,10 @@
 					<nav id="nav">
 						<ul>
 							<li><a href="{% url 'index' %}" class="active">Home</a></li>
-							<li><a href="#cta">Upload</a></li>
-							<li><a href="#intro" class="">Music Index</a></li>
+							<li><a href="{% url 'upload_sheet_music' %}">Upload</a></li>
+							<li><a href="{% url 'music_list' %}" class="">Music Index</a></li>
 							{% if user.is_authenticated %}
-							<li><a href="" class="">You are logged in</a></li>
+							<li><a href="{% url 'login' %}" class="">You are logged in</a></li>
 							{% else %}
 							<li><a href="{% url 'login' %}" class="">Login</a></li>
 							{% endif %}

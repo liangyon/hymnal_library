@@ -11,6 +11,8 @@ urlpatterns = [
          name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(template_name='music/registration/logout.html'),
          name='logout'),
+    path('download/<int:file_id>/', views.download_music, name='download_pdf'),
+    path('music_list/', views.music_list, name='music_list'),
     path('', views.index, name='index'),
 
 ]

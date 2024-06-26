@@ -3,50 +3,22 @@
 {% block title %}Home - Hymnal Library{% endblock %}
 
 {% block content %}
-<div id="wrapper">
 
-    <!-- Header -->
-    <header id="header">
-        <h1>{{sheet.title}}</h1>
-        <p>{{sheet.lyricsAuthor}} / {{sheet.musicAuthor}}</p>
+<section id="intro" class="main special">
+    <div class="spotlight">
+        <div class="content">
+            <header class="major">
+                <h2>Music List</h2>
+            </header>
+                {% for item in items %}
 
-    </header>
+                <a href="{% url 'music_page' item.id %}">{{ item.title }} </a> <br />
 
-    <!-- Main -->
-    <div id="main">
 
-        <!-- Content -->
-        <div class="spotlight">
+            {% endfor %}
         </div>
-
-        <section id="content" class="main">
-
-
-            <div class="features">
-
-            </div>
-            <ul class="features">
-                <li>
-                    <h2>Description</h2>
-                    <p>{{sheet.description}}</p>
-                    <h2>Lyrics</h2>
-                    <p>{{sheet.lyrics}}</p>
-                    <a href="{{sheet.pdf.url}}" class="button" download>Download</a>
-                </li>
-                <li>
-                    <embed src="{{sheet.pdf.url}}" type="application/pdf" height="700px" width="500">
-                </li>
-            </ul>
-
-        </section>
-
-
     </div>
+</section>
 
-    <!-- Footer -->
-    <footer id="footer">
 
-    </footer>
-
-</div>
 {% endblock %}

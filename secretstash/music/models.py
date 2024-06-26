@@ -12,7 +12,7 @@ class SheetMusic(models.Model):
     musicAuthor = models.TextField(max_length=35, default='', null=True, blank=True)
     tjchymn = models.BooleanField(default=False)
     pdf = models.FileField(upload_to='sheet_music', validators=[validate_pdf_extension], null=True, blank=True)
-    playable = models.FileField(upload_to='sheet_music', validators=[validate_audio_extension], null=True, blank=True)
+    playable = models.FileField(upload_to='mp3', validators=[validate_audio_extension], null=True, blank=True)
     tags = TaggableManager()
 
     def __str__(self):
