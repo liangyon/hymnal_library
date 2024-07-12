@@ -1,0 +1,22 @@
+<!-- music/templates/music/upload_sheet_music.html -->
+{% extends 'music/base.html' %}
+{% load static %}
+{% block title %}Home - Hymnal Library{% endblock %}
+
+{% block content %}
+<section id="cta" class="main special">
+    <header class="major">
+        <h2>Upload</h2>
+    </header>
+    <p> You can upload your music here (PDFs only). It will
+        take time to process and approve a large amount of files, so please be patient</p>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+    <footer class="major">
+    </footer>
+</section>
+
+{% endblock %}

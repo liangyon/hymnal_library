@@ -21,26 +21,31 @@
 
         <section id="content" class="main">
 
-
-            <div class="features">
-
-            </div>
             <ul class="features">
-                <li>
 
-                    {% if sheet.pdf %}
-                        <embed src="127.0.0.1:8000{% url 'download_pdf' sheet.id %}" type="application/pdf" height="700px" width="500">
-                    {% endif %}
-                </li>
                 <li>
                     <p>Description: {{sheet.description}}</p>
                     <p>Lyrics: {{sheet.lyrics}}</p>
+                </li>
+                <li>
+                    <p></p>
+                </li>
+                <li>
                     {% if sheet.pdf %}
                         <a href="{% url 'download_pdf' sheet.id %}" class="btn btn-primary">Download PDF</a>
                     {% endif %}
                 </li>
 
             </ul>
+            <div class="features">
+                {% if sheet.pdf %}
+                    <!-- Display first page of the PDF -->
+<!--                    <embed src="{% url 'download_pdf' sheet.id %}" type="application/pdf" width="100%" height="100%px" />-->
+                    <embed src="{% url 'display_pdf' sheet.id %}" type="application/pdf" width="800px" height="500px" />
+                {% endif %}
+            </div>
+
+
 
         </section>
 
