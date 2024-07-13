@@ -1,2 +1,2 @@
-web: gunicorn secretstash.secretstash.wsgi --log-file -
+web: cd ./secretstash gunicorn secretstash.wsgi --log-file -
 release: python secretstash/manage.py migrate
