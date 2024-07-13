@@ -92,6 +92,7 @@ def login_view(request):
         return redirect('music/registration/login.html')
 
 
+@login_required()
 class FileFieldFormView(FormView):
     form_class = FileFieldForm
     template_name = "music/upload_multiple_pdfs.html"  # Replace with your template.
