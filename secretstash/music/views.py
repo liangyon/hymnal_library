@@ -12,7 +12,7 @@ import os
 
 def index(request):
     try:
-        items = SheetMusic.objects.all()
+        items = SheetMusic.objects.all().order_by('-id')[:5]
     except items.DoesNotExist:
         raise Http404("No musics exist")
     return render(request, 'music/index.html', {'items': items})
@@ -101,7 +101,7 @@ class FileFieldFormView(FormView):
         files = form.cleaned_data["file_field"]
         for f in files:
             sheet_music = SheetMusic(
-                title=f.name,
+                title=f.name.split()[0],
                 pdf=f,
             )
             sheet_music.save()

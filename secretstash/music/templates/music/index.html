@@ -10,15 +10,29 @@
             <h2>Welcome</h2>
             <p>Let us share the joy of music<br /></p>
         </header>
+
         <footer class="major">
             <ul class="actions special">
                 {% if not user.is_authenticated %}
                 <li><a href="{% url 'login' %}" class="button primary">Login</a></li>
                 {% endif %}
-                <li>   <a href="{% url 'upload_sheet_music' %}" class="button">Upload Sheet Music</a></li>
+                <li>   <a href="{% url 'upload_multiple_sheet_music' %}" class="button">Upload Sheet Music</a></li>
             </ul>
         </footer>
     </section>
+
+    <section id="" class="main special">
+        <header class="major">
+            <h2>Recent uploads</h2>
+        </header>
+        {% for item in items %}
+            <ul>
+                <li> <a href="{% url 'music_page' item.id %}">{{ item.title }}</a> </li>
+            </ul>
+        {% endfor %}
+        <a href="{% url 'music_list' %}" class="button">Music List</a>
+    </section>
+
 
 <!--    {% if user.is_authenticated %}-->
 <!--    <section id="intro" class="main special">-->

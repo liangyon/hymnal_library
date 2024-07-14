@@ -99,7 +99,7 @@ input, select, textarea {
 	}
 
 	body {
-		background-color: #935d8c;
+		background-color: #9db0a5;
 		background-image: url("images/overlay.png"), -moz-linear-gradient(45deg, #9db0a5 15%, #1f80a6 85%);
 		background-image: url("images/overlay.png"), -webkit-linear-gradient(45deg, #9db0a5 15%, #1f80a6 85%);
 		background-image: url("images/overlay.png"), -ms-linear-gradient(45deg, #9db0a5 15%, #1f80a6 85%);
@@ -134,7 +134,7 @@ input, select, textarea {
 
 
 	body {
-		background-color: #935d8c;
+		background-color: #9db0a5;
 		color: rgba(255, 255, 255, 0.65);
 	}
 
@@ -2447,6 +2447,7 @@ input, select, textarea {
 
 		ul li {
 			padding-left: 0.5em;
+			list-style-type: none;
 		}
 
 		ul.alt {
@@ -3335,11 +3336,11 @@ input, select, textarea {
 		@media screen and (max-width: 736px) {
 
 			#nav {
-				display: none;
+				/*display: none;*/
 			}
 
 				#nav + #main {
-					padding-top: 0;
+					padding-top: 4.25em;
 				}
 
 		}
@@ -3796,3 +3797,47 @@ input, select, textarea {
 			}
 
 		}
+
+
+
+/*  mine */
+
+.embed-container {
+    width: 100%;
+    height: 500px; /* Set a specific height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.embed-pdf {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.features {
+    list-style: none; /* Remove default list styling */
+    padding: 0;
+    margin: 0;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100px; /* Adjust height as needed */
+}
+
+.button-container .btn {
+    vertical-align: middle; /* Ensure vertical alignment is middle */
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    overflow: hidden; /* Ensure content does not overflow the card */
+}
