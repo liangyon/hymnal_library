@@ -3337,6 +3337,9 @@ input, select, textarea {
 
 			#nav {
 				/*display: none;*/
+				box-sizing: border-box; /* Ensure padding is included in the element's width */
+			    width: 100%;
+                max-width: inherit;
 			}
 
 				#nav + #main {
