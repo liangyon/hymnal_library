@@ -101,7 +101,7 @@ class FileFieldFormView(FormView):
         files = form.cleaned_data["file_field"]
         for f in files:
             sheet_music = SheetMusic(
-                title=f.name.split()[0],
+                title=f.name.split('.')[0],
                 pdf=f,
             )
             sheet_music.save()
