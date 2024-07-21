@@ -1,9 +1,10 @@
 # music/views.py
-
+import boto3
+from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, FileResponse, HttpResponse
+from django.http import Http404, FileResponse, HttpResponse, HttpResponseRedirect, StreamingHttpResponse
 from .forms import SheetMusicForm, FileFieldForm
 from django.views.generic.edit import FormView
 from .models import SheetMusic
@@ -20,15 +21,40 @@ def index(request):
 
 @login_required()
 def download_music(request, sheetID):
+    # sheet_music = get_object_or_404(SheetMusic, id=sheetID)
+    #
+    # if sheet_music.pdf:
+    #     file_path = sheet_music.pdf.path
+    #     if os.path.exists(file_path):
+    #         response = FileResponse(open(file_path, 'rb'))
+    #         response['Content-Disposition'] = f'attachment; filename="{os.path.basename(file_path)}"'
+    #         return response
+    #     else:
+    #         raise Http404("File not found")
+    # else:
+    #     raise Http404("File not found")
     sheet_music = get_object_or_404(SheetMusic, id=sheetID)
 
     if sheet_music.pdf:
-        file_path = sheet_music.pdf.path
-        if os.path.exists(file_path):
-            response = FileResponse(open(file_path, 'rb'))
-            response['Content-Disposition'] = f'attachment; filename="{os.path.basename(file_path)}"'
+        s3_client = boto3.client(
+            's3',
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+            region_name=settings.AWS_S3_REGION_NAME
+        )
+        bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+        file_key = sheet_music.pdf.name
+
+        try:
+            # Download the file from S3
+            s3_object = s3_client.get_object(Bucket=bucket_name, Key=file_key)
+            file_stream = s3_object['Body'].read()
+
+            # Stream the file as an HTTP response
+            response = StreamingHttpResponse(file_stream, content_type='application/pdf')
+            response['Content-Disposition'] = f'attachment; filename="{sheet_music.pdf.name}"'
             return response
-        else:
+        except s3_client.exceptions.NoSuchKey:
             raise Http404("File not found")
     else:
         raise Http404("File not found")
@@ -56,20 +82,28 @@ def music_page(request, sheetID):
 @login_required
 def display_pdf(request, sheetID):
     sheet = get_object_or_404(SheetMusic, id=sheetID)
+    #
 
-    # Check if the sheet music has a PDF file
+    sheet = get_object_or_404(SheetMusic, id=sheetID)
+
     if sheet.pdf:
-        file_path = sheet.pdf.path
-        if os.path.exists(file_path):
-            # Open the file in binary mode
-            with open(file_path, 'rb') as f:
-                response = HttpResponse(f.read(), content_type='application/pdf')
-                # Set Content-Disposition to inline
-                response['Content-Disposition'] = 'inline; filename="{0}"'.format(os.path.basename(file_path))
-            return response
-
-    # If no PDF file or file not found, return a 404 response
-    raise Http404("PDF file not found")
+        file_url = sheet.pdf.url
+        return HttpResponseRedirect(file_url)
+    else:
+        raise Http404("PDF file not found")
+    # # Check if the sheet music has a PDF file
+    # if sheet.pdf:
+    #     file_path = sheet.pdf.path
+    #     if os.path.exists(file_path):
+    #         # Open the file in binary mode
+    #         with open(file_path, 'rb') as f:
+    #             response = HttpResponse(f.read(), content_type='application/pdf')
+    #             # Set Content-Disposition to inline
+    #             response['Content-Disposition'] = 'inline; filename="{0}"'.format(os.path.basename(file_path))
+    #         return response
+    #
+    # # If no PDF file or file not found, return a 404 response
+    # raise Http404("PDF file not found")
 
 
 @login_required()
