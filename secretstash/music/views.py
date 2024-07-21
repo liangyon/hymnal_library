@@ -9,6 +9,7 @@ from .forms import SheetMusicForm, FileFieldForm
 from django.views.generic.edit import FormView
 from .models import SheetMusic
 import os
+import logging
 
 
 def index(request):
@@ -48,13 +49,17 @@ def download_music(request, sheetID):
         try:
             # Download the file from S3
             s3_object = s3_client.get_object(Bucket=bucket_name, Key=file_key)
-            file_stream = s3_object['Body'].read()
+            file_stream = s3_object['Body'].iter_chunks()
 
             # Stream the file as an HTTP response
             response = StreamingHttpResponse(file_stream, content_type='application/pdf')
             response['Content-Disposition'] = f'attachment; filename="{sheet_music.pdf.name}"'
             return response
         except s3_client.exceptions.NoSuchKey:
+            logging.error("File not found in S3")
+            raise Http404("File not found")
+        except Exception as e:
+            logging.error(f"Error streaming file: {e}")
             raise Http404("File not found")
     else:
         raise Http404("File not found")
@@ -82,13 +87,32 @@ def music_page(request, sheetID):
 @login_required
 def display_pdf(request, sheetID):
     sheet = get_object_or_404(SheetMusic, id=sheetID)
-    #
-
-    sheet = get_object_or_404(SheetMusic, id=sheetID)
 
     if sheet.pdf:
-        file_url = sheet.pdf.url
-        return HttpResponseRedirect(file_url)
+        s3_client = boto3.client(
+            's3',
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+            region_name=settings.AWS_S3_REGION_NAME
+        )
+        bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+        file_key = sheet.pdf.name
+
+        try:
+            # Download the file from S3
+            s3_object = s3_client.get_object(Bucket=bucket_name, Key=file_key)
+            file_stream = s3_object['Body'].iter_chunks()
+
+            # Stream the file as an HTTP response
+            response = StreamingHttpResponse(file_stream, content_type='application/pdf')
+            response['Content-Disposition'] = f'inline; filename="{sheet.pdf.name}"'
+            return response
+        except s3_client.exceptions.NoSuchKey:
+            logging.error("File not found in S3")
+            raise Http404("PDF file not found")
+        except Exception as e:
+            logging.error(f"Error streaming file: {e}")
+            raise Http404("PDF file not found")
     else:
         raise Http404("PDF file not found")
     # # Check if the sheet music has a PDF file
