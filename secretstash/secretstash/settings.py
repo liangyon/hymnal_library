@@ -15,6 +15,7 @@ import environ
 import django_heroku
 import dj_database_url
 import os
+import dj_database_url
 
 env = environ.Env()
 environ.Env.read_env()
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'music',
     'taggit',
     'compressor',
+    'storages',
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
@@ -136,7 +138,22 @@ USE_I18N = True
 
 USE_TZ = True
 
-MEDIA_URL = '/media/'
+
+# Bucketeer settings
+BUCKETEER_AWS_ACCESS_KEY_ID = os.getenv('BUCKETEER_AWS_ACCESS_KEY_ID')
+BUCKETEER_AWS_SECRET_ACCESS_KEY = os.getenv('BUCKETEER_AWS_SECRET_ACCESS_KEY')
+BUCKETEER_BUCKET_NAME = os.getenv('BUCKETEER_BUCKET_NAME')
+BUCKETEER_AWS_REGION = os.getenv('BUCKETEER_AWS_REGION')
+
+AWS_ACCESS_KEY_ID = BUCKETEER_AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = BUCKETEER_AWS_SECRET_ACCESS_KEY
+AWS_STORAGE_BUCKET_NAME = BUCKETEER_BUCKET_NAME
+AWS_S3_REGION_NAME = BUCKETEER_AWS_REGION
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+
+# MEDIA_URL = '/media/'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Static files (CSS, JavaScript, Images)
@@ -165,4 +182,11 @@ STATICFILES_FINDERS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# Static files (CSS, JavaScript, Images)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Media files (User uploads)
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 django_heroku.settings(locals())
