@@ -25,13 +25,16 @@
                 <div class="features">
                     {% if sheet.pdf %}
                     <div class="embed-container">
-                        <embed src="{% url 'display_pdf' sheet.id %}" type="application/pdf" class="embed-pdf"/>
+                        <canvas id="pdf-canvas"></canvas>
                     </div>
-                    <object data="{% url 'display_pdf' sheet.id %}" type="application/pdf" width="100%" height="100%">
-                        <p>Your web browser doesn't have a PDF plugin.
-                            Instead you can <a href="filename.pdf">click here to
-                                download the PDF file.</a></p>
-                    </object>
+<!--                    <div class="embed-container">-->
+<!--                        <embed src="{% url 'display_pdf' sheet.id %}" type="application/pdf" class="embed-pdf"/>-->
+<!--                    </div>-->
+<!--                        <object data="{% url 'display_pdf' sheet.id %}"  width="100%" height="100%">-->
+<!--                            <p>Your web browser doesn't have a PDF plugin.-->
+<!--                                Instead you can <a href="filename.pdf">click here to-->
+<!--                                    download the PDF file.</a></p>-->
+<!--                        </object>-->
                     {% endif %}
                 </div>
                 <div class="card-body">
@@ -40,8 +43,8 @@
                         <a href="{% url 'download_pdf' sheet.id %}" class="btn btn-secondary">Download PDF</a>
                     </div>
                     {% endif %}
-                    <p class="card-text">Description: {{ sheet.description }}</p>
-                    <p class="card-text">Lyrics: {{ sheet.lyrics }}</p>
+<!--                    <p class="card-text">Description: {{ sheet.description }}</p>-->
+<!--                    <p class="card-text">Lyrics: {{ sheet.lyrics }}</p>-->
                 </div>
             </div>
 
@@ -55,6 +58,49 @@
     <footer id="footer">
 
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var url = "{% url 'display_pdf' sheet.id %}"; // PDF URL
+
+            // Setting up PDF.js
+            var pdfjsLib = window['pdfjs-dist/build/pdf'];
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+
+            // Fetch the PDF document
+            var loadingTask = pdfjsLib.getDocument(url);
+            loadingTask.promise.then(function(pdf) {
+                console.log('PDF loaded');
+
+                // Fetch the first page
+                pdf.getPage(1).then(function(page) {
+                    console.log('Page loaded');
+
+                    var scale = 1.5;
+                    var viewport = page.getViewport({ scale: scale });
+
+                    // Prepare canvas using PDF page dimensions
+                    var canvas = document.getElementById('pdf-canvas');
+                    var context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    // Render the page into the canvas context
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    var renderTask = page.render(renderContext);
+                    renderTask.promise.then(function () {
+                        console.log('Page rendered');
+                    });
+                });
+            }, function (reason) {
+                console.error(reason);
+            });
+        });
+    </script>
+
 
 </div>
 {% endblock %}
