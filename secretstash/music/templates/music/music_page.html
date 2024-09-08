@@ -63,9 +63,8 @@
         document.addEventListener("DOMContentLoaded", function() {
             var url = "{% url 'display_pdf' sheet.id %}"; // PDF URL
 
-            // Setting up PDF.js
-            var pdfjsLib = window['pdfjs-dist/build/pdf'];
-            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+            // Set workerSrc globally for PDF.js
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.6.82/pdf.min.mjs';
 
             // Fetch the PDF document
             var loadingTask = pdfjsLib.getDocument(url);
@@ -76,10 +75,16 @@
                 pdf.getPage(1).then(function(page) {
                     console.log('Page loaded');
 
-                    var scale = 1;
-                    var viewport = page.getViewport({ scale: scale });
+                    // Calculate scale to fit the card width while maintaining aspect ratio
+                    var cardWidth = document.querySelector('.card').offsetWidth;
+                    var cardHeight = document.querySelector('.card').offsetHeight;
+                    var viewport = page.getViewport({ scale: 1 });
+                    var scale = cardWidth / viewport.width;
 
-                    // Prepare canvas using PDF page dimensions
+                    // Create viewport with calculated scale
+                    viewport = page.getViewport({ scale: scale });
+
+                    // Prepare canvas using calculated dimensions
                     var canvas = document.getElementById('pdf-canvas');
                     var context = canvas.getContext('2d');
                     canvas.height = viewport.height;
