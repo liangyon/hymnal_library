@@ -23,18 +23,25 @@
             </div>
             <div class="row justify-content-center">
                     <div class="table-responsive" style="max-width: 100%; overflow-x: auto;">
-                        <table class="table table-hover" style="width: 100%;">
+                        <table
+                            data-toggle="table"
+                            data-pagination="true"
+                            data-sort-name="Title"
+                            data-sort-order="desc"
+                            class="table table-hover"
+                            style="width: 100%;">
                             <thead>
                             <tr>
-                                <th data-field="Title">Title</th>
-                                <th data-field="Author">Author</th>
+                                <th data-field="ID" data-sortable="true">ID</th>
+                                <th data-field="Title" data-sortable="true">Title</th>
+                                <th>Link</th>
                             </tr>
                             </thead>
                             <tbody id="musicTable">
                             {% for item in items %}
                             <tr>
+                                <td style="text-align:left"> {{item.id}}</td>
                                 <td style="text-align:left"><a href="{% url 'music_page' item.id %}">{{ item.title }}</a></td>
-                                <td>{{ item.author }}</td>
                                 <td class="text-center">
                                     <a href="{% url 'music_page' item.id %}" style="background-color: transparent;">
                                         <svg  xmlns="http://www.w3.org/2000/svg"
