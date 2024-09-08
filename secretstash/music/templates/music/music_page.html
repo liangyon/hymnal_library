@@ -64,7 +64,7 @@
             var url = "{% url 'display_pdf' sheet.id %}"; // PDF URL
 
             // Set workerSrc globally for PDF.js
-            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.6.82/pdf.min.mjs';
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
 
             // Fetch the PDF document
             var loadingTask = pdfjsLib.getDocument(url);
