@@ -14,28 +14,26 @@
             <div class="container">
 
                 <div class="row justify-content-center align-items-center">
-                    <div class="col-md-6 mb-3">
+
                         <div class="input-group">
                             <input id="myInput" type="text" class="form-control" placeholder="Search Music...">
                         </div>
-                    </div>
                 </div>
 
             </div>
             <div class="row justify-content-center">
-                <div class="col-md-6">
                     <div class="table-responsive" style="max-width: 100%; overflow-x: auto;">
-                        <table class="table table-striped" style="width: 100%;">
+                        <table class="table table-hover" style="width: 100%;">
                             <thead>
                             <tr>
-                                <th>Title</th>
-                                <th>Author</th>
+                                <th data-field="Title">Title</th>
+                                <th data-field="Author">Author</th>
                             </tr>
                             </thead>
                             <tbody id="musicTable">
                             {% for item in items %}
                             <tr>
-                                <td ><a href="{% url 'music_page' item.id %}">{{ item.title }}</a></td>
+                                <td style="text-align:left"><a href="{% url 'music_page' item.id %}">{{ item.title }}</a></td>
                                 <td>{{ item.author }}</td>
                                 <td class="text-center">
                                     <a href="{% url 'music_page' item.id %}" style="background-color: transparent;">
@@ -57,7 +55,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+
             </div>
         </div>
     </div>

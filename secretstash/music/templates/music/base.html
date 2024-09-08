@@ -25,6 +25,8 @@
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Our own styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.2/dist/bootstrap-table.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.2/dist/bootstrap-table.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
     <noscript>
         <link rel="stylesheet" href="{% static 'css/noscript.css' %}"/>
@@ -137,10 +139,10 @@
     </div>
 
     <!-- Footer -->
-    <footer id="footer" style="text-align: center">
+    <footer id="footer" style="text-align: center; justify-content: center; align-items: center;">
         <section class="">
             <h2>Can't find your login?</h2>
-            <p>Its time to look elsewhere</p>
+            <p>Its time to ask around!</p>
             <br>
             {% if user.is_authenticated %}
             <form method="post" action="{% url 'logout' %}">
@@ -154,18 +156,8 @@
             </form>
             {% endif %}
 
-        </section>
+<!--        </section>-->
 
-        <section>
-            <h2>Etiam feugiat</h2>
-            <dl class="alt">
-                <dt>Address</dt>
-                <dd>1234 Somewhere Road &bull; Nashville, TN 00000 &bull; USA</dd>
-                <dt>Phone</dt>
-                <dd>(000) 000-0000 x 0000</dd>
-                <dt>Email</dt>
-                <dd><a href="#">information@untitled.tld</a></dd>
-            </dl>
         </section>
 
 

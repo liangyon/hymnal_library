@@ -3573,9 +3573,7 @@ input, select, textarea {
 			border-color: #dddddd;
 		}
 
-			#main table tbody tr:nth-child(2n + 1) {
-				background-color: rgba(222, 222, 222, 0.25);
-			}
+
 
 		#main table th {
 			color: #636363;

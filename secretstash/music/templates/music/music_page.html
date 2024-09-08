@@ -8,7 +8,7 @@
     <!-- Header -->
     <header id="header">
         <h1>{{sheet.title}}</h1>
-        <p>{{sheet.lyricsAuthor}}  {{sheet.musicAuthor}}</p>
+        <p>{{sheet.lyricsAuthor}} {{sheet.musicAuthor}}</p>
 
     </header>
 
@@ -27,6 +27,11 @@
                     <div class="embed-container">
                         <embed src="{% url 'display_pdf' sheet.id %}" type="application/pdf" class="embed-pdf"/>
                     </div>
+                    <object data="{% url 'display_pdf' sheet.id %}" type="application/pdf" width="100%" height="100%">
+                        <p>Your web browser doesn't have a PDF plugin.
+                            Instead you can <a href="filename.pdf">click here to
+                                download the PDF file.</a></p>
+                    </object>
                     {% endif %}
                 </div>
                 <div class="card-body">
@@ -39,8 +44,6 @@
                     <p class="card-text">Lyrics: {{ sheet.lyrics }}</p>
                 </div>
             </div>
-
-
 
 
         </section>
