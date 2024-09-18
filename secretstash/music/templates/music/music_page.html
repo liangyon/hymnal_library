@@ -21,7 +21,7 @@
 
         <section id="content" class="main">
 
-            <div class="card">
+            <div class="card" >
                 <div class="features">
                     {% if sheet.pdf %}
                     <div class="embed-container">
@@ -36,16 +36,18 @@
 <!--                                    download the PDF file.</a></p>-->
 <!--                        </object>-->
                     {% endif %}
+            </div>
+
+            </div>
+
+            <div class="card-body">
+                {% if sheet.pdf %}
+                <div class="button-container">
+                    <a href="{% url 'download_pdf' sheet.id %}" class="btn btn-secondary">Download PDF</a>
                 </div>
-                <div class="card-body">
-                    {% if sheet.pdf %}
-                    <div class="button-container">
-                        <a href="{% url 'download_pdf' sheet.id %}" class="btn btn-secondary">Download PDF</a>
-                    </div>
-                    {% endif %}
+                {% endif %}
 <!--                    <p class="card-text">Description: {{ sheet.description }}</p>-->
 <!--                    <p class="card-text">Lyrics: {{ sheet.lyrics }}</p>-->
-                </div>
             </div>
 
 
